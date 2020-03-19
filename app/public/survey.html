@@ -35,9 +35,10 @@
 
         <br>
 
+
         <h4>Question 1</h4>
         <p>I would like to have children in the nearby future.</p>
-        <select class="custom-select">
+        <select class="custom-select" id="question1">
             <option selected>Select an Option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -49,7 +50,7 @@
         <p></p>
         <h4>Question 2</h4>
         <p>My career is very important to me.</p>
-        <select class="custom-select">
+        <select class="custom-select" id="question2">
             <option selected>Select an Option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -61,7 +62,7 @@
         <p></p>
         <h4>Question 3</h4>
         <p>I love animals.</p>
-        <select class="custom-select">
+        <select class="custom-select" id="question3">
             <option selected>Select an Option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -73,7 +74,7 @@
         <p></p>
         <h4>Question 4</h4>
         <p>I date with the goal of marriage in mind.</p>
-        <select class="custom-select">
+        <select class="custom-select" id="question4">
             <option selected>Select an Option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -85,7 +86,7 @@
         <p></p>
         <h4>Question 5</h4>
         <p>I consider myself a family-oriented person.</p>
-        <select class="custom-select">
+        <select class="custom-select" id="question5">
             <option selected>Select an Option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -97,7 +98,7 @@
         <p></p>
         <h4>Question 6</h4>
         <p>I enjoy traveling and would love a travel partner.</p>
-        <select class="custom-select">
+        <select class="custom-select" id="question6">
             <option selected>Select an Option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -109,7 +110,7 @@
         
         <h4>Question 7</h4>
         <p>Health and Fitness are very important to me.</p>
-        <select class="custom-select">
+        <select class="custom-select" id="question7">
             <option selected>Select an Option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -122,7 +123,7 @@
         
         <h4>Question 8</h4>
         <p>I enjoy cooking meals at home.</p>
-        <select class="custom-select">
+        <select class="custom-select" id="question8">
             <option selected>Select an Option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -134,7 +135,7 @@
 
         <h4>Question 9</h4>
         <p>I consider myself a religious person.</p>
-        <select class="custom-select">
+        <select class="custom-select" id="question9">
             <option selected>Select an Option</option>
             <option value="1">1 (Strongly Disagree)</option>
             <option value="2">2</option>
@@ -155,8 +156,35 @@
             <option value="5">5 (Strongly Agree)</option>
         </select>
         
-        
         <p></p>
+        <button type="submit" class="btn btn-primary submit">Submit</button>
+        <p></p>
+
+<!-- Modal -->
+<div class="modal fade" id="matchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="match">Best Match</h4>
+          <h5 id ="match-name"></h5>
+          <img id ="match-pic" src="">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="modal-close" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+
        <p class= "text-danger font-italic"> *Required fields.</p>
     </div>
 
@@ -164,3 +192,55 @@
 </body>
 
 </html>
+
+<script type= "text/javascript">
+
+$(".submit").on("click", function (event){
+    event.preventDefault();
+    var newFriend = {
+        name: $("#Name").val().trim(),
+        photoLink: $("#photo").val().trim(),
+        question1: $("#question1 : selected").val(),
+        question2: $("#question2 : selected").val(),
+        question3: $("#question3 : selected").val(),
+        question4: $("#question4 : selected").val(),
+        question5: $("#question5 : selected").val(),
+        question6: $("#question6 : selected").val(),
+        question7: $("#question7 : selected").val(),
+        question8: $("#question8 : selected").val(),
+        question9: $("#question9 : selected").val(),
+        question10: $("#question10 : selected").val(),
+    };
+    console.log(newFriend);
+
+    $.post("/api/friends", newFriend, function(data) {
+  //findMatch();
+  
+  displayMatch();
+  
+  function displayMatch(){
+    $("match-name").text(data.name);
+    $("#match-pic").attr("src", data.photoLink);
+    $("#matchModal").modal("toggle");
+  }
+    //$("#modal-close").on("click")
+
+
+    $("#Name").val("");
+    $("#photo").val("");
+    $("#question1 : selected").val("");
+    $("#question2 : selected").val("");
+    $("#question3 : selected").val("");
+    $("#question4 : selected").val("");
+    $("#question5 : selected").val("");
+    $("#question6 : selected").val("");
+    $("#question7 : selected").val("");
+    $("#question8 : selected").val("");
+    $("#question9 : selected").val("");
+    $("#question10 : selected").val("");
+
+    });
+
+});
+
+</script>

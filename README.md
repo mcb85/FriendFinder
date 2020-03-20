@@ -8,4 +8,5 @@ To run the app, the user must use the browser. To begin, the user will enter loc
 ## Technologies Used
 This app has html components, as it is displayed in the browser. Specifically, two html pages comprise the views. The server is handled using node. The express npm package is also utilized to support the server functions. The live app is deployed in Heroku.
 
-
+## Author
+Mariana Bromfield
